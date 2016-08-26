@@ -193,6 +193,7 @@ GameObject:
   - 124: {fileID: 613907535}
   - 81: {fileID: 613907534}
   - 114: {fileID: 613907533}
+  - 114: {fileID: 613907538}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -279,6 +280,25 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
+--- !u!114 &613907538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 613907531}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50241475489e710469a4f8836df4c4dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axes: 0
+  sensitivityX: 15
+  sensitivityY: 15
+  minimumX: -360
+  maximumX: 360
+  minimumY: -60
+  maximumY: 60
+  frameCounter: 20
 --- !u!1001 &772566484
 Prefab:
   m_ObjectHideFlags: 0
@@ -340,7 +360,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400230, guid: 68419698854f9fa4280d8ea4ff7548ef, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.11993939
+      value: 0.11993937
       objectReference: {fileID: 0}
     - target: {fileID: 400230, guid: 68419698854f9fa4280d8ea4ff7548ef, type: 3}
       propertyPath: m_LocalRotation.z
@@ -348,7 +368,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400230, guid: 68419698854f9fa4280d8ea4ff7548ef, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.059645835
+      value: -0.059645828
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 68419698854f9fa4280d8ea4ff7548ef, type: 3}
       propertyPath: m_Controller
@@ -356,7 +376,7 @@ Prefab:
       objectReference: {fileID: 9100000, guid: d9edea29413d5ec4ab08bf5a9af7f184, type: 2}
     - target: {fileID: 9500000, guid: 68419698854f9fa4280d8ea4ff7548ef, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 68419698854f9fa4280d8ea4ff7548ef, type: 3}
@@ -626,8 +646,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b1a905db25da041af59d6abd610772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 35
-  heightControl: 1
+  moveSpeed: 10
+  heightControl: 0.5
   isGrounded: 0
   playerIndex: 0
   animator: {fileID: 293099119}

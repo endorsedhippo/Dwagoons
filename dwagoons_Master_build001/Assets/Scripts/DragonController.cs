@@ -27,6 +27,12 @@ public class DragonController : MonoBehaviour
         //stamina = GetComponent<StaminaScript>();
 
         animator = GetComponent<Animator>();
+
+        if (InputManager.Devices.Count <= playerIndex)
+        {
+            return;
+        }
+        device = InputManager.Devices[playerIndex];
     }
 
     // Update is called once per frame
@@ -46,11 +52,7 @@ public class DragonController : MonoBehaviour
             //StaminaUpdate();
         }
         // move all Input code to Update() - Dr Mike sez!
-        if (InputManager.Devices.Count <= playerIndex)
-        {
-            return;
-        }
-        device = InputManager.Devices[playerIndex];
+        
     }
     /// <summary>
     /// Analog Stick controls movement entirely
@@ -95,16 +97,16 @@ public class DragonController : MonoBehaviour
 
         //Movement
         if (device.LeftStickX.Value < -0.1f)
-        {
+        {//Left
             //transform.position -= transform.right * Time.deltaTime * moveSpeed;
             velocity -= transform.right * Time.deltaTime;
-            transform.Rotate(0, -0.5f, 0);
+            transform.Rotate(0, -0.7f, 0);
         }
         else if (device.LeftStickX.Value > 0.1f)
-        {
+        {//Right
             //transform.position += transform.right * Time.deltaTime * moveSpeed;
             velocity += transform.right * Time.deltaTime;
-            transform.Rotate(0, 0.5f, 0);
+            transform.Rotate(0, 0.7f, 0);
         }
         if(device.LeftStickY.Value == 1)
         {
@@ -112,12 +114,12 @@ public class DragonController : MonoBehaviour
             velocity += transform.forward * Time.deltaTime * moveSpeed;
         }
         if (device.LeftStickY.Value < -0.1f)
-        {
+        {//Backwards
             //transform.position -= (transform.forward * Time.deltaTime * moveSpeed) / 2;
             velocity -= (transform.forward * Time.deltaTime) / 2;
         }
         else if (device.LeftStickY.Value > 0.1f)
-        {
+        {//Forwards
             //transform.position += transform.forward * Time.deltaTime * moveSpeed;
             velocity += transform.forward * Time.deltaTime;
         }

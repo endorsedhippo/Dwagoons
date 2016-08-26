@@ -14,16 +14,17 @@ public class CameraFollow : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
         if (InputManager.Devices.Count <= playerIndex)
         {
             return;
         }
         device = InputManager.Devices[playerIndex];
+    }
+	
+	// Update is called once per frame
+	void Update () {
+
+       
 
     }
     void FixedUpdate()
