@@ -1,0 +1,161 @@
+fileFormatVersion: 2
+guid: 56cacf77aa1412348b95854be7c0335b
+timeCreated: 1472087918
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: low_stadium_01
+    100002: low_stadium_010
+    100004: low_stadium_02
+    100006: low_stadium_02 1
+    100008: low_stadium_03
+    100010: low_stadium_04
+    100012: low_stadium_05
+    100014: low_stadium_06
+    100016: low_stadium_07
+    100018: low_stadium_08
+    100020: low_stadium_09
+    100022: low_stadiumCroud_01
+    100024: low_stadiumCroud_024
+    100026: low_stadiumCroud_025
+    100028: low_stadiumCroud_026
+    100030: low_stadiumCroud_027
+    100032: low_stadiumCroud_028
+    100034: low_stadiumCroud_029
+    100036: low_stadiumCroud_030
+    100038: low_stadiumCroud_031
+    100040: low_stadiumCroud_032
+    100042: preview_grp
+    100044: //RootNode
+    100046: transform11
+    100048: transform12
+    100050: transform13
+    100052: transform14
+    100054: transform15
+    100056: transform16
+    100058: transform17
+    100060: transform18
+    100062: transform19
+    100064: transform20
+    100066: transform21
+    100068: transform22
+    100070: transform23
+    100072: transform24
+    100074: transform25
+    100076: transform26
+    100078: transform27
+    100080: transform28
+    100082: transform29
+    100084: transform30
+    400000: low_stadium_01
+    400002: low_stadium_010
+    400004: low_stadium_02
+    400006: low_stadium_02 1
+    400008: low_stadium_03
+    400010: low_stadium_04
+    400012: low_stadium_05
+    400014: low_stadium_06
+    400016: low_stadium_07
+    400018: low_stadium_08
+    400020: low_stadium_09
+    400022: low_stadiumCroud_01
+    400024: low_stadiumCroud_024
+    400026: low_stadiumCroud_025
+    400028: low_stadiumCroud_026
+    400030: low_stadiumCroud_027
+    400032: low_stadiumCroud_028
+    400034: low_stadiumCroud_029
+    400036: low_stadiumCroud_030
+    400038: low_stadiumCroud_031
+    400040: low_stadiumCroud_032
+    400042: preview_grp
+    400044: //RootNode
+    400046: transform11
+    400048: transform12
+    400050: transform13
+    400052: transform14
+    400054: transform15
+    400056: transform16
+    400058: transform17
+    400060: transform18
+    400062: transform19
+    400064: transform20
+    400066: transform21
+    400068: transform22
+    400070: transform23
+    400072: transform24
+    400074: transform25
+    400076: transform26
+    400078: transform27
+    400080: transform28
+    400082: transform29
+    400084: transform30
+    2300000: low_stadium_02
+    3300000: low_stadium_02
+    4300000: low_stadium_02
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 100
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
