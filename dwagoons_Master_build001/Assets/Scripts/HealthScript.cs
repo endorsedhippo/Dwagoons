@@ -7,8 +7,6 @@ public class HealthScript : MonoBehaviour {
     public int currentHealth;
 
     public Slider healthSlider;
-
-    DragonController movement;
 	// Use this for initialization
 	void Start ()
     {

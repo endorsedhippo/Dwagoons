@@ -5,7 +5,7 @@ using InControl;
 
 
 [RequireComponent (typeof (Animator))]
-public class DragonController : MonoBehaviour
+public class DragonControllerFly : MonoBehaviour
 {
     public float moveSpeed;
     public float heightControl;
