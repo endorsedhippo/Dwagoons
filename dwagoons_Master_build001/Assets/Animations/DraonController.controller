@@ -520,7 +520,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Bank Left
-  m_Speed: 0.5
+  m_Speed: 0.65
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110181232}
@@ -568,7 +568,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Flying
-  m_Speed: 0.5
+  m_Speed: 0.8
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110105766}
@@ -594,7 +594,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Bank Right
-  m_Speed: 0.5
+  m_Speed: 0.65
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110151600}

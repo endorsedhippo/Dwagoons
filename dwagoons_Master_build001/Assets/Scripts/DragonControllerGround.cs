@@ -6,7 +6,7 @@ public class DragonControllerGround : MonoBehaviour {
     public float moveSpeed;
     public int playerIndex;
 
-    private InputDevice device;
+    public InputDevice device;
 	// Use this for initialization
 	void Start () {
         if (InputManager.Devices.Count <= playerIndex)

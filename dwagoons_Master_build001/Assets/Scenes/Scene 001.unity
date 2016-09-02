@@ -811,8 +811,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 1620094360}
   - 95: {fileID: 1620094359}
-  - 114: {fileID: 1620094358}
   - 54: {fileID: 1620094357}
+  - 114: {fileID: 1620094358}
+  - 114: {fileID: 1620094362}
+  - 114: {fileID: 1620094361}
   m_Layer: 0
   m_Name: Dragon 2
   m_TagString: Untagged
@@ -847,7 +849,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 35
-  heightControl: 5
   isGrounded: 0
   playerIndex: 1
   animator: {fileID: 293099119}
@@ -883,6 +884,32 @@ Transform:
   - {fileID: 424442192}
   m_Father: {fileID: 0}
   m_RootOrder: 6
+--- !u!114 &1620094361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1620094356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab13006ace3529242822edc932578ced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heightControl: 1.5
+  playerIndex: 1
+--- !u!114 &1620094362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1620094356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 976a2708cdc105e46a69692ecacd52ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0
+  playerIndex: 1
 --- !u!1 &2097676088
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,8 +942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b1a905db25da041af59d6abd610772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
-  heightControl: 2
+  moveSpeed: 30
   isGrounded: 0
   playerIndex: 0
   animator: {fileID: 293099119}
@@ -990,6 +1016,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab13006ace3529242822edc932578ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heightControl: 1.5
+  playerIndex: 0
 --- !u!114 &2097676095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1001,5 +1029,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 976a2708cdc105e46a69692ecacd52ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
+  moveSpeed: 3
   playerIndex: 0

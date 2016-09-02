@@ -8,7 +8,6 @@ using InControl;
 public class DragonControllerFly : MonoBehaviour
 {
     public float moveSpeed;
-    public float heightControl;
     public bool isGrounded = false;
     public int playerIndex;
 
@@ -20,6 +19,7 @@ public class DragonControllerFly : MonoBehaviour
     public Animator animator;
     private InputDevice device;
     //private StaminaScript stamina;
+
     // Use this for initialization
     void Start()
     {
@@ -38,12 +38,11 @@ public class DragonControllerFly : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         //Check for grounded for animation purposes
         if (isGrounded == true)
         {
             animator.SetBool("IsGrounded", true);
-            rb.drag = 10;
             ///animator.setBool("isWalking", isGrounded);
         }
         else
@@ -51,50 +50,6 @@ public class DragonControllerFly : MonoBehaviour
             animator.SetBool("IsGrounded", false);
             //StaminaUpdate();
         }
-        // move all Input code to Update() - Dr Mike sez!
-        
-    }
-    /// <summary>
-    /// Analog Stick controls movement entirely
-    /// </summary>
-    void FixedUpdate()
-    {
-
-        if (rb.drag >= 10)
-        {
-            rb.drag = 10;
-        }
-        else if (rb.drag <= 2)
-        {
-            rb.drag = 2;
-        }
-        isGrounded = false;
-
-        RaycastHit[] Hits =
-            Physics.SphereCastAll(transform.position, 0.1f + 0.1f, Vector2.down, 1.2f);
-
-        foreach (RaycastHit hit in Hits)
-        {
-            if (hit.normal.y > 0.1f && hit.rigidbody != rb)
-            {
-                isGrounded = true;
-            }
-        }
-
-        Vector3 velocity0 = rb.velocity;
-        //Height control
-        if (device.LeftTrigger.IsPressed)
-        {
-            velocity0.y -= heightControl;
-            rb.drag += 0.01f;
-        }
-        else if (device.RightTrigger.IsPressed)
-        {
-            velocity0.y += heightControl;
-            rb.drag -= 0.03f;
-        }
-        rb.velocity = velocity0;
-
         //Movement
         if (device.LeftStickX.Value < -0.1f)
         {//Left
@@ -108,20 +63,21 @@ public class DragonControllerFly : MonoBehaviour
             velocity += transform.right * Time.deltaTime;
             transform.Rotate(0, 0.7f, 0);
         }
-        if(device.LeftStickY.Value == 1)
+        if (device.LeftStickY.Value == 1)
         {
-            moveSpeed++;
             velocity += transform.forward * Time.deltaTime * moveSpeed;
         }
         if (device.LeftStickY.Value < -0.1f)
         {//Backwards
             //transform.position -= (transform.forward * Time.deltaTime * moveSpeed) / 2;
             velocity -= (transform.forward * Time.deltaTime) / 2;
+            rb.drag += 0.01f;
         }
         else if (device.LeftStickY.Value > 0.1f)
         {//Forwards
             //transform.position += transform.forward * Time.deltaTime * moveSpeed;
             velocity += transform.forward * Time.deltaTime;
+            rb.drag -= 0.03f;
         }
 
         // air resistance
@@ -129,8 +85,15 @@ public class DragonControllerFly : MonoBehaviour
 
         // keep on moving
         transform.position = transform.position + velocity * Time.deltaTime * moveSpeed;
+        transform.Rotate(0, 0, 0);
 
-        //Check to see position of left joystick to determine whether player is idle or flying
+    }
+    /// <summary>
+    /// Analog Stick controls movement entirely
+    /// </summary>
+    void FixedUpdate()
+    {
+        //change animation based on position of left stick
         if(device.LeftStickY > 0.05f)
         {
             animator.SetBool("SetFlying", true);
