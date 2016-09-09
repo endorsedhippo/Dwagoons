@@ -156,7 +156,7 @@ GameObject:
   - 114: {fileID: 175585334}
   m_Layer: 0
   m_Name: Camera 2
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -244,11 +244,6 @@ MonoBehaviour:
 --- !u!4 &293099118 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400256, guid: 68419698854f9fa4280d8ea4ff7548ef, type: 3}
-  m_PrefabInternal: {fileID: 772566484}
---- !u!95 &293099119 stripped
-Animator:
-  m_PrefabParentObject: {fileID: 9500000, guid: 68419698854f9fa4280d8ea4ff7548ef,
-    type: 3}
   m_PrefabInternal: {fileID: 772566484}
 --- !u!1 &424442191
 GameObject:
@@ -833,6 +828,8 @@ GameObject:
   - 114: {fileID: 1620094358}
   - 114: {fileID: 1620094362}
   - 114: {fileID: 1620094361}
+  - 114: {fileID: 1620094363}
+  - 65: {fileID: 1620094364}
   m_Layer: 0
   m_Name: Dragon 2
   m_TagString: Untagged
@@ -866,9 +863,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b1a905db25da041af59d6abd610772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 35
+  moveSpeed: 30
   playerIndex: 1
-  animator: {fileID: 293099119}
 --- !u!95 &1620094359
 Animator:
   serializedVersion: 3
@@ -916,7 +912,8 @@ MonoBehaviour:
   heightControl: 1.5
   playerIndex: 1
   isGrounded: 0
-  animator: {fileID: 0}
+  animator: {fileID: 158634289}
+  velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1620094362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -928,8 +925,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 976a2708cdc105e46a69692ecacd52ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
+  moveSpeed: 3
   playerIndex: 1
+--- !u!114 &1620094363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1620094356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 725c0d154bab11e45b35d0e497bcaf48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerIndex: 1
+  moveSpeed: 0
+--- !u!65 &1620094364
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1620094356}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2097676088
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,7 +987,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 30
   playerIndex: 0
-  animator: {fileID: 293099119}
 --- !u!4 &2097676090
 Transform:
   m_ObjectHideFlags: 0
@@ -1041,6 +1062,7 @@ MonoBehaviour:
   playerIndex: 0
   isGrounded: 0
   animator: {fileID: 158634289}
+  velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &2097676095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1066,3 +1088,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIndex: 0
+  moveSpeed: 5

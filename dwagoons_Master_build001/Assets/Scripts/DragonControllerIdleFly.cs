@@ -5,14 +5,15 @@ using InControl;
 public class DragonControllerIdleFly : MonoBehaviour {
 
     public int playerIndex;
-    public Vector3 velocity0;
     public float moveSpeed;
 
     private InputDevice device;
-   
-	// Use this for initialization
-	void Start ()
+    private DragonManager manager;
+
+    // Use this for initialization
+    void Start ()
     {
+        manager = GetComponent<DragonManager>();
         if (InputManager.Devices.Count <= playerIndex)
         {
             return;
@@ -39,13 +40,13 @@ public class DragonControllerIdleFly : MonoBehaviour {
         else if (device.LeftStickY.Value > 0.1f)
         {//Forwards
 
-            velocity0 += transform.forward * Time.deltaTime * moveSpeed;
+            manager.velocity += transform.forward * Time.deltaTime * moveSpeed;
             moveSpeed += 0.1f;
         }
 
         // air resistance
-        velocity0 *= 0.99f;
+        manager.velocity *= 0.99f;
 
-        transform.position = transform.position + velocity0 * Time.deltaTime * moveSpeed;
+        transform.position = transform.position + manager.velocity * Time.deltaTime * moveSpeed;
     }
 }

@@ -7,6 +7,7 @@ public class DragonManager : MonoBehaviour {
     public int playerIndex;
     public bool isGrounded = false;
     public Animator animator;
+    public Vector3 velocity;
 
     private DragonControllerFly flyController;
     private DragonControllerIdleFly idleFlyController;
@@ -38,9 +39,8 @@ public class DragonManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        idleFlyController.velocity0 = flyController.velocity;
+        //idleFlyController.velocity0 = flyController.velocity;
         //flyController.velocity = idleFlyController.velocity0;
-        scriptDelay -= 0.05f;
         if (groundController == null)
         {
             groundController = GetComponent<DragonControllerGround>();
@@ -59,7 +59,7 @@ public class DragonManager : MonoBehaviour {
             groundController.enabled = false;    
         }
 
-        if(idleFlyController.moveSpeed >= 20)
+        if(idleFlyController.moveSpeed >= 7)
         {
             if (idleFlyController.enabled == true)
             {
@@ -92,11 +92,6 @@ public class DragonManager : MonoBehaviour {
             rb.drag = 2;
         }
 
-        if(scriptDelay <= 0)
-        {
-            scriptDelay = 0;
-        }
-
         RaycastHit[] Hits =
             Physics.SphereCastAll(transform.position, 0.1f + 0.1f, Vector2.down, 1.2f);
 
@@ -123,5 +118,33 @@ public class DragonManager : MonoBehaviour {
             rb.drag -= 0.03f;
         }
         rb.velocity = velocity0;
+    }
+
+    void FixedUpdate()
+    {
+        //change animation based on position of left stick
+        if (device.LeftStickY > 0.05f)
+        {
+            animator.SetBool("SetFlying", true);
+            animator.SetBool("BankLeft", false);
+            animator.SetBool("BankRight", false);
+            if (device.LeftStickX < -0.1f)
+            {
+                animator.SetBool("BankLeft", true);
+                animator.SetBool("BankRight", false);
+            }
+            else if (device.LeftStickX > 0.1f)
+            {
+                animator.SetBool("BankRight", true);
+                animator.SetBool("BankLeft", false);
+            }
+            else return;
+        }
+        else
+        {
+            animator.SetBool("SetFlying", false);
+            animator.SetBool("BankLeft", false);
+            animator.SetBool("BankRight", false);
+        }
     }
 }
