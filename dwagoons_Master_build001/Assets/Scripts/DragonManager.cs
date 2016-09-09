@@ -5,18 +5,26 @@ using InControl;
 public class DragonManager : MonoBehaviour {
     public float heightControl;
     public int playerIndex;
+    public bool isGrounded = false;
+    public Animator animator;
+
     private DragonControllerFly flyController;
+    private DragonControllerIdleFly idleFlyController;
     private DragonControllerGround groundController;
     private InputDevice device;
     private Rigidbody rb;
+
     // Use this for initialization
     void Start ()
     {
         flyController = GetComponent<DragonControllerFly>();
         groundController = GetComponent<DragonControllerGround>();
+        idleFlyController = GetComponent<DragonControllerIdleFly>();
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
 
-        flyController.enabled = true;
+        flyController.enabled = false;
+        idleFlyController.enabled = true;
         groundController.enabled = false;
 
         if (InputManager.Devices.Count <= playerIndex)
@@ -24,26 +32,56 @@ public class DragonManager : MonoBehaviour {
             return;
         }
         device = InputManager.Devices[playerIndex];
+
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if(groundController == null)
+        idleFlyController.velocity0 = flyController.velocity;
+        //flyController.velocity = idleFlyController.velocity0;
+        scriptDelay -= 0.05f;
+        if (groundController == null)
         {
             groundController = GetComponent<DragonControllerGround>();
         }
-            
-        if (flyController.isGrounded == true)
+    
+        if (isGrounded == true)
         {
-            flyController.enabled = false;
+            animator.SetBool("IsGrounded", true);
+            idleFlyController.enabled = false;
             groundController.enabled = true;
         }
         else
         {
-            flyController.enabled = true;
-            groundController.enabled = false;
+            animator.SetBool("IsGrounded", false);
+            //StaminaUpdate();
+            groundController.enabled = false;    
         }
+
+        if(idleFlyController.moveSpeed >= 20)
+        {
+            if (idleFlyController.enabled == true)
+            {
+                idleFlyController.enabled = false;
+                animator.SetBool("SetFlying", true);
+                flyController.enabled = true;
+                flyController.moveSpeed = 30.0f;
+                
+            }
+        }
+        if(flyController.moveSpeed <= 20)
+        {
+            if(flyController.enabled == true)
+            {
+                flyController.enabled = false;
+                animator.SetBool("SetFlying", false);
+                idleFlyController.enabled = true;
+                idleFlyController.moveSpeed = 5;
+            }
+        }
+       
+
 
         if (rb.drag >= 10)
         {
@@ -53,7 +91,11 @@ public class DragonManager : MonoBehaviour {
         {
             rb.drag = 2;
         }
-        flyController.isGrounded = false;
+
+        if(scriptDelay <= 0)
+        {
+            scriptDelay = 0;
+        }
 
         RaycastHit[] Hits =
             Physics.SphereCastAll(transform.position, 0.1f + 0.1f, Vector2.down, 1.2f);
@@ -62,9 +104,12 @@ public class DragonManager : MonoBehaviour {
         {
             if (hit.normal.y > 0.05f && hit.rigidbody != rb)
             {
-                flyController.isGrounded = true;
+                isGrounded = true;
             }
         }
+
+
+
         //Height Control
         Vector3 velocity0 = rb.velocity;
         if (device.LeftTrigger.IsPressed)

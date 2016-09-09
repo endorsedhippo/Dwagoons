@@ -8,13 +8,11 @@ using InControl;
 public class DragonControllerFly : MonoBehaviour
 {
     public float moveSpeed;
-    public bool isGrounded = false;
     public int playerIndex;
 
-    Vector3 velocity;
+    public Vector3 velocity;
 
     Rigidbody rb;
-    RaycastHit hit;
 
     public Animator animator;
     private InputDevice device;
@@ -39,27 +37,16 @@ public class DragonControllerFly : MonoBehaviour
     void Update()
     {
         
-        //Check for grounded for animation purposes
-        if (isGrounded == true)
-        {
-            animator.SetBool("IsGrounded", true);
-            ///animator.setBool("isWalking", isGrounded);
-        }
-        else
-        {
-            animator.SetBool("IsGrounded", false);
-            //StaminaUpdate();
-        }
         //Movement
         if (device.LeftStickX.Value < -0.1f)
         {//Left
-            //transform.position -= transform.right * Time.deltaTime * moveSpeed;
+            
             velocity -= transform.right * Time.deltaTime;
             transform.Rotate(0, -0.7f, 0);
         }
         else if (device.LeftStickX.Value > 0.1f)
         {//Right
-            //transform.position += transform.right * Time.deltaTime * moveSpeed;
+           
             velocity += transform.right * Time.deltaTime;
             transform.Rotate(0, 0.7f, 0);
         }
@@ -69,13 +56,13 @@ public class DragonControllerFly : MonoBehaviour
         }
         if (device.LeftStickY.Value < -0.1f)
         {//Backwards
-            //transform.position -= (transform.forward * Time.deltaTime * moveSpeed) / 2;
-            velocity -= (transform.forward * Time.deltaTime) / 2;
-            rb.drag += 0.01f;
+            moveSpeed -= 0.1f;
+            //velocity -= (transform.forward * Time.deltaTime) / 2;
+            //rb.drag += 0.01f;
         }
         else if (device.LeftStickY.Value > 0.1f)
         {//Forwards
-            //transform.position += transform.forward * Time.deltaTime * moveSpeed;
+            
             velocity += transform.forward * Time.deltaTime;
             rb.drag -= 0.03f;
         }
@@ -87,10 +74,11 @@ public class DragonControllerFly : MonoBehaviour
         transform.position = transform.position + velocity * Time.deltaTime * moveSpeed;
         transform.Rotate(0, 0, 0);
 
+
+        //moveSpeed -= 0.1f;
+
     }
-    /// <summary>
-    /// Analog Stick controls movement entirely
-    /// </summary>
+
     void FixedUpdate()
     {
         //change animation based on position of left stick
@@ -118,13 +106,6 @@ public class DragonControllerFly : MonoBehaviour
             animator.SetBool("BankRight", false);
         }
     }
-
-    
-
-
-
-
-
 
     //private void StaminaUpdate()
     //{
