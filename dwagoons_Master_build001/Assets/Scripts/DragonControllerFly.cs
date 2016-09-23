@@ -15,13 +15,13 @@ public class DragonControllerFly : MonoBehaviour
 
     private InputDevice device;
     private DragonManager manager;
-    //private StaminaScript stamina;
+    
 
     // Use this for initialization
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        //stamina = GetComponent<StaminaScript>();
+        
         manager = GetComponent<DragonManager>();
 
         if (InputManager.Devices.Count <= playerIndex)
@@ -36,17 +36,20 @@ public class DragonControllerFly : MonoBehaviour
     {
         
         //Movement
-        if (device.LeftStickX.Value < -0.1f)
-        {//Left
+        if(moveSpeed >= 30)
+        {
+            if (device.LeftStickX.Value < -0.1f)
+            {//Left
             
-            manager.velocity -= transform.right * Time.deltaTime;
-            transform.Rotate(0, -0.7f, 0);
-        }
-        else if (device.LeftStickX.Value > 0.1f)
-        {//Right
+                manager.velocity -= transform.right * Time.deltaTime;
+                transform.Rotate(0, -0.7f, 0);
+            }
+            else if (device.LeftStickX.Value > 0.1f)
+            {//Right
            
-            manager.velocity += transform.right * Time.deltaTime;
-            transform.Rotate(0, 0.7f, 0);
+                manager.velocity += transform.right * Time.deltaTime;
+                transform.Rotate(0, 0.7f, 0);
+            }
         }
         if (device.LeftStickY.Value == 1)
         {
@@ -54,17 +57,22 @@ public class DragonControllerFly : MonoBehaviour
         }
         if (device.LeftStickY.Value < -0.1f)
         {//Backwards
-            moveSpeed -= 0.1f;
+            moveSpeed -= 1.0f;
             //manager.velocity -= (transform.forward * Time.deltaTime) / 2;
             //rb.drag += 0.01f;
         }
         else if (device.LeftStickY.Value > 0.1f)
         {//Forwards
-            
+            moveSpeed += 0.2f;
             manager.velocity += transform.forward * Time.deltaTime;
             rb.drag -= 0.03f;
         }
 
+        //If the left stick isn't moving, reduce speed
+        if(device.LeftStick.Vector == new Vector2(0, 0))
+        {
+            moveSpeed -= 0.2f;
+        }
         // air resistance
         manager.velocity *= 0.99f;
 
@@ -73,14 +81,12 @@ public class DragonControllerFly : MonoBehaviour
         transform.Rotate(0, 0, 0);
 
 
-        //moveSpeed -= 0.1f;
+        if(moveSpeed >= 40)
+        {
+            moveSpeed = 40;
+        }
 
     }
-    //private void StaminaUpdate()
-    //{
-    //    float staminaTick = (1.0f * Time.deltaTime) / 2;
 
-    //    stamina.UseStamina(staminaTick);
-    //}
 
 }

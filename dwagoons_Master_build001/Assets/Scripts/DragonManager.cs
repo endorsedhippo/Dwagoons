@@ -12,6 +12,7 @@ public class DragonManager : MonoBehaviour {
     private DragonControllerFly flyController;
     private DragonControllerIdleFly idleFlyController;
     private DragonControllerGround groundController;
+    private HealthScript health;
     private InputDevice device;
     private Rigidbody rb;
 
@@ -21,6 +22,7 @@ public class DragonManager : MonoBehaviour {
         flyController = GetComponent<DragonControllerFly>();
         groundController = GetComponent<DragonControllerGround>();
         idleFlyController = GetComponent<DragonControllerIdleFly>();
+        health = GetComponent<HealthScript>();
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
 
@@ -28,10 +30,10 @@ public class DragonManager : MonoBehaviour {
         idleFlyController.enabled = true;
         groundController.enabled = false;
 
-        if (InputManager.Devices.Count <= playerIndex)
-        {
-            return;
-        }
+        //if (InputManager.Devices.Count <= playerIndex)
+        //{
+        //    return;
+        //}
         device = InputManager.Devices[playerIndex];
 
     }
@@ -45,7 +47,11 @@ public class DragonManager : MonoBehaviour {
         {
             groundController = GetComponent<DragonControllerGround>();
         }
-    
+        
+        if(playerIndex == 1)
+        {
+            return;
+        }
         if (isGrounded == true)
         {
             animator.SetBool("IsGrounded", true);
@@ -66,11 +72,10 @@ public class DragonManager : MonoBehaviour {
                 idleFlyController.enabled = false;
                 animator.SetBool("SetFlying", true);
                 flyController.enabled = true;
-                flyController.moveSpeed = 30.0f;
-                
+                flyController.moveSpeed = 8.0f;
             }
         }
-        if(flyController.moveSpeed <= 20)
+        if(flyController.moveSpeed <= 7.9f)
         {
             if(flyController.enabled == true)
             {
@@ -80,8 +85,17 @@ public class DragonManager : MonoBehaviour {
                 idleFlyController.moveSpeed = 5;
             }
         }
-       
 
+        //How to Take Damage on a certain dragon
+        if(playerIndex == 0)
+        {
+            health.TakeDamage(1);
+        }
+        else if(playerIndex == 1)
+        {
+            health.TakeDamage(3);
+        }
+        //How to Take Damage on a certain dragon
 
         if (rb.drag >= 10)
         {
@@ -90,6 +104,23 @@ public class DragonManager : MonoBehaviour {
         else if (rb.drag <= 2)
         {
             rb.drag = 2;
+        }
+
+        if(velocity.x > 1.7f)
+        {
+            velocity.x = 1.7f;
+        }
+        else if(velocity.x < -1.7f)
+        {
+            velocity.x = -1.7f;
+        }
+        if (velocity.z > 1.7f)
+        {
+            velocity.z = 1.7f;
+        }
+        else if(velocity.z < -1.7f)
+        {
+            velocity.z = -1.7f;
         }
 
         RaycastHit[] Hits =
@@ -103,7 +134,7 @@ public class DragonManager : MonoBehaviour {
             }
         }
 
-
+        
 
         //Height Control
         Vector3 velocity0 = rb.velocity;
@@ -128,12 +159,12 @@ public class DragonManager : MonoBehaviour {
             animator.SetBool("SetFlying", true);
             animator.SetBool("BankLeft", false);
             animator.SetBool("BankRight", false);
-            if (device.LeftStickX < -0.1f)
+            if (device.LeftStickX < -0.1f && flyController.moveSpeed >= 30)
             {
                 animator.SetBool("BankLeft", true);
                 animator.SetBool("BankRight", false);
             }
-            else if (device.LeftStickX > 0.1f)
+            else if (device.LeftStickX > 0.1f && flyController.moveSpeed >= 30)
             {
                 animator.SetBool("BankRight", true);
                 animator.SetBool("BankLeft", false);
@@ -147,4 +178,11 @@ public class DragonManager : MonoBehaviour {
             animator.SetBool("BankRight", false);
         }
     }
+
+    //private void StaminaUpdate()
+    //{
+    //    float staminaTick = (1.0f * Time.deltaTime) / 2;
+
+    //    stamina.UseStamina(staminaTick);
+    //}
 }
