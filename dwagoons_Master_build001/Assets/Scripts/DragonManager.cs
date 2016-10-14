@@ -134,7 +134,24 @@ public class DragonManager : MonoBehaviour {
             }
         }
 
-        
+        RaycastHit terrainVert;
+        Debug.DrawRay(transform.position, -Vector3.up * 100, Color.red);
+        Vector3 desiredUp = Vector3.up;
+        if (Physics.Raycast(transform.position, -Vector3.up, out terrainVert, 7.0f))
+        {
+            Debug.DrawRay(terrainVert.point, terrainVert.normal * 100, Color.blue);
+            //transform.rotation = Quaternion.Slerp(transform.rotation, terrainVert.normal, 0.1f);
+            desiredUp = terrainVert.normal;
+
+            Debug.DrawRay(terrainVert.point, terrainVert.normal * 100, Color.green);
+            //transform.rotation = Quaternion.Slerp();
+        }
+
+        Vector3 right = Vector3.Cross(transform.up, desiredUp);
+        if (right.magnitude > 0.1f)
+        {
+            transform.rotation = Quaternion.AngleAxis(2, right) * transform.rotation;
+        }
 
         //Height Control
         Vector3 velocity0 = rb.velocity;

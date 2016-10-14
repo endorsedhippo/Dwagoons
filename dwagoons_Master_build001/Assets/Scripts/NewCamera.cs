@@ -5,11 +5,14 @@ using InControl;
 public class NewCamera : MonoBehaviour {
 
     public Transform target;
-    public Camera[] cameras;
+    public Vector3[] positions;
     public int playerIndex;
     public float cameraRotateSpeed;
 
     private InputDevice device;
+    private bool closeCamera;
+    public bool cameraIncrease;
+    public bool cameraDecrease;
     
     // Use this for initialization
     void Start ()
@@ -19,68 +22,65 @@ public class NewCamera : MonoBehaviour {
             return;
         }
         device = InputManager.Devices[playerIndex];
-        cameras[0].enabled = true;
-        cameras[1].enabled = false;
+
+
+        //Camera Management Initialising
+        //transform.position = positions[0];
+
+        closeCamera = true;
+        cameraIncrease = true;
+        cameraDecrease = false;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
         transform.LookAt(target);
-        //transform.position = Vector3.Lerp(transform.position, startPos.position, Time.deltaTime * 5.0f);
 
-        if (cameras[0].enabled == true)
+        CameraSwitch();
+
+        if(closeCamera == true)
         {
-            if (device.RightStickX.Value > 0)
-            {
-                cameras[0].transform.RotateAround(target.transform.position, Vector3.up, cameraRotateSpeed * Time.deltaTime);
-            }
-            else if (device.RightStickX.Value < 0)
-            {
-                cameras[0].transform.RotateAround(target.transform.position, Vector3.up, -cameraRotateSpeed * Time.deltaTime);
-            }
-            
             if (device.RightStickButton.WasPressed)
             {
-                SelectCamera(1);
+                transform.position = new Vector3(transform.position.x, transform.position.y + 7, transform.position.z * 2);
+                transform.rotation = transform.rotation;
+                closeCamera = false;
             }
-            else
-                return;
         }
-        else if(cameras[1].enabled == true)
+        else
         {
-            if (device.RightStickX.Value > 0)
-            {
-                cameras[1].transform.RotateAround(target.transform.position, Vector3.up, cameraRotateSpeed * Time.deltaTime);
-            }
-            else if (device.RightStickX.Value < 0)
-            {
-                cameras[1].transform.RotateAround(target.transform.position, Vector3.up, -cameraRotateSpeed * Time.deltaTime);
-            }
             if (device.RightStickButton.WasPressed)
             {
-                SelectCamera(0);
+                transform.position = new Vector3(transform.position.x, transform.position.y - 7, transform.position.z / 2);
+                transform.rotation = transform.rotation;
+                closeCamera = true;
             }
-            else
-                return;
         }
-
-
-
+       
+        
+        if (device.RightStickX.Value > 0)
+        {
+            this.transform.RotateAround(target.transform.position, Vector3.up, cameraRotateSpeed * Time.deltaTime);
+        }
+     else if(device.RightStickX.Value < 0)
+        {
+            this.transform.RotateAround(target.transform.position, Vector3.up, -cameraRotateSpeed * Time.deltaTime);
+        }
     }
 
-    private void SelectCamera(int index)
+    //basic Camera management
+    private void CameraSwitch()
     {
-        for(int i = 0; i < cameras.Length; i++)
+        if(closeCamera == true)
         {
-            if(i == index)
-            {
-                cameras[i].enabled = true;
-            }
-            else
-            {
-                cameras[i].enabled = false;
-            }
+            cameraIncrease = true;
+            cameraDecrease = false;
+        }
+        else
+        {
+            cameraDecrease = true;
+            cameraIncrease = false;
         }
     }
 }
