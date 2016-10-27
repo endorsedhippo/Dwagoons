@@ -16,6 +16,8 @@ public class DragonManager : MonoBehaviour {
     private InputDevice device;
     private Rigidbody rb;
 
+	public bool trigger;
+
     // Use this for initialization
     void Start ()
     {
@@ -157,6 +159,7 @@ public class DragonManager : MonoBehaviour {
         {
             velocity0.y -= heightControl;
             rb.drag += 0.01f;
+			trigger = true;
         }
         else if (device.RightTrigger.IsPressed)
         {
