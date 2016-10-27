@@ -63,7 +63,7 @@ public class DragonControllerFly : MonoBehaviour
         {//Forwards
             moveSpeed += 0.2f;
             manager.velocity += transform.forward * Time.deltaTime;
-            rb.drag -= 0.03f;
+            //rb.drag -= 0.03f;
         }
 
         //If the left stick isn't moving, reduce speed

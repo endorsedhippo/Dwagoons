@@ -13026,11 +13026,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
   m_IsPrefabParent: 0
---- !u!95 &158634289 stripped
-Animator:
-  m_PrefabParentObject: {fileID: 9500000, guid: 68419698854f9fa4280d8ea4ff7548ef,
-    type: 3}
-  m_PrefabInternal: {fileID: 490982742}
 --- !u!1 &162165912
 GameObject:
   m_ObjectHideFlags: 0
@@ -14930,6 +14925,11 @@ Transform:
   - {fileID: 1394832148}
   m_Father: {fileID: 673577593}
   m_RootOrder: 4
+--- !u!95 &364329882 stripped
+Animator:
+  m_PrefabParentObject: {fileID: 9500000, guid: 68419698854f9fa4280d8ea4ff7548ef,
+    type: 3}
+  m_PrefabInternal: {fileID: 490982742}
 --- !u!1001 &368207217
 Prefab:
   m_ObjectHideFlags: 0
@@ -29423,9 +29423,8 @@ MonoBehaviour:
   heightControl: 1.5
   playerIndex: 0
   isGrounded: 0
-  animator: {fileID: 0}
+  animator: {fileID: 364329882}
   velocity: {x: 0, y: 0, z: 0}
-  trigger: 0
 --- !u!95 &1585321463
 Animator:
   serializedVersion: 3
@@ -30353,10 +30352,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b1a905db25da041af59d6abd610772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 30
-  playerIndex: 1
-  rb: {fileID: 0}
-  manager: {fileID: 0}
 --- !u!95 &1620094359
 Animator:
   serializedVersion: 3
@@ -30401,16 +30396,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab13006ace3529242822edc932578ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heightControl: 1.5
-  playerIndex: 1
-  isGrounded: 0
-  animator: {fileID: 158634289}
-  velocity: {x: 0, y: 0, z: 0}
-  flyController: {fileID: 0}
-  idleFlyController: {fileID: 0}
-  groundController: {fileID: 0}
-  health: {fileID: 0}
-  rb: {fileID: 0}
 --- !u!114 &1620094362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30435,9 +30420,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 725c0d154bab11e45b35d0e497bcaf48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerIndex: 1
-  moveSpeed: 0
-  manager: {fileID: 0}
 --- !u!65 &1620094364
 BoxCollider:
   m_ObjectHideFlags: 0

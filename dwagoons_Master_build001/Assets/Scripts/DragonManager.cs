@@ -2,7 +2,8 @@
 using System.Collections;
 using InControl;
 
-public class DragonManager : MonoBehaviour {
+public class DragonManager : MonoBehaviour
+{
     public float heightControl;
     public int playerIndex;
     public bool isGrounded = false;
@@ -16,10 +17,9 @@ public class DragonManager : MonoBehaviour {
     private InputDevice device;
     private Rigidbody rb;
 
-	public bool trigger;
-
+    
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         flyController = GetComponent<DragonControllerFly>();
         groundController = GetComponent<DragonControllerGround>();
@@ -39,18 +39,16 @@ public class DragonManager : MonoBehaviour {
         device = InputManager.Devices[playerIndex];
 
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
-        //idleFlyController.velocity0 = flyController.velocity;
-        //flyController.velocity = idleFlyController.velocity0;
         if (groundController == null)
         {
             groundController = GetComponent<DragonControllerGround>();
         }
-        
-        if(playerIndex == 1)
+
+        if (playerIndex == 1)
         {
             return;
         }
@@ -64,10 +62,10 @@ public class DragonManager : MonoBehaviour {
         {
             animator.SetBool("IsGrounded", false);
             //StaminaUpdate();
-            groundController.enabled = false;    
+            groundController.enabled = false;
         }
 
-        if(idleFlyController.moveSpeed >= 7)
+        if (idleFlyController.moveSpeed >= 7)
         {
             if (idleFlyController.enabled == true)
             {
@@ -77,9 +75,9 @@ public class DragonManager : MonoBehaviour {
                 flyController.moveSpeed = 8.0f;
             }
         }
-        if(flyController.moveSpeed <= 7.9f)
+        if (flyController.moveSpeed <= 7.9f)
         {
-            if(flyController.enabled == true)
+            if (flyController.enabled == true)
             {
                 flyController.enabled = false;
                 animator.SetBool("SetFlying", false);
@@ -89,11 +87,11 @@ public class DragonManager : MonoBehaviour {
         }
 
         //How to Take Damage on a certain dragon
-        if(playerIndex == 0)
+        if (playerIndex == 0)
         {
             health.TakeDamage(1);
         }
-        else if(playerIndex == 1)
+        else if (playerIndex == 1)
         {
             health.TakeDamage(3);
         }
@@ -107,21 +105,21 @@ public class DragonManager : MonoBehaviour {
             rb.drag = 2;
         }
 
-        if(velocity.x > 1.7f)
+        if (velocity.x > 1.7f)
         {
-            velocity.x = 1.7f;
+            velocity.x = 1.65f;
         }
-        else if(velocity.x < -1.7f)
+        else if (velocity.x < -1.7f)
         {
-            velocity.x = -1.7f;
+            velocity.x = -1.65f;
         }
         if (velocity.z > 1.7f)
         {
-            velocity.z = 1.7f;
+            velocity.z = 1.65f;
         }
-        else if(velocity.z < -1.7f)
+        else if (velocity.z < -1.7f)
         {
-            velocity.z = -1.7f;
+            velocity.z = -1.65f;
         }
 
         RaycastHit[] Hits =
@@ -134,6 +132,8 @@ public class DragonManager : MonoBehaviour {
                 isGrounded = true;
             }
         }
+
+        
 
         RaycastHit terrainVert;
         Debug.DrawRay(transform.position, -Vector3.up * 100, Color.red);
@@ -153,24 +153,31 @@ public class DragonManager : MonoBehaviour {
             transform.rotation = Quaternion.AngleAxis(2, right) * transform.rotation;
         }
 
-        //Height Control
-        Vector3 velocity0 = rb.velocity;
-        if (device.LeftTrigger.IsPressed)
-        {
-            velocity0.y -= heightControl;
-            rb.drag += 0.01f;
-			trigger = true;
-        }
-        else if (device.RightTrigger.IsPressed)
-        {
-            velocity0.y += heightControl;
-            rb.drag -= 0.03f;
-        }
-        rb.velocity = velocity0;
+        
+
+       
+        
     }
 
     void FixedUpdate()
     {
+        //Height Control
+        Vector3 velocity0 = rb.velocity;
+
+        if (device.LeftTrigger.IsPressed)
+        {
+            velocity0.y -= heightControl;
+            //rb.drag += 0.01f;
+
+        }
+        else if (device.RightTrigger.IsPressed)
+        {
+            velocity0.y += heightControl;
+            //rb.drag -= 0.03f;
+
+        }
+        rb.velocity = velocity0;
+
         //change animation based on position of left stick
         if (device.LeftStickY > 0.99f || flyController.moveSpeed >= 15)
         {
