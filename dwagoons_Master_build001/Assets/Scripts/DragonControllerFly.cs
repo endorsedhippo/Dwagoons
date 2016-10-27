@@ -36,7 +36,7 @@ public class DragonControllerFly : MonoBehaviour
     {
         
         //Movement
-        if(moveSpeed >= 30)
+        if(moveSpeed >= 15)
         {
             if (device.LeftStickX.Value < -0.1f)
             {//Left
@@ -58,8 +58,6 @@ public class DragonControllerFly : MonoBehaviour
         if (device.LeftStickY.Value < -0.1f)
         {//Backwards
             moveSpeed -= 1.0f;
-            //manager.velocity -= (transform.forward * Time.deltaTime) / 2;
-            //rb.drag += 0.01f;
         }
         else if (device.LeftStickY.Value > 0.1f)
         {//Forwards

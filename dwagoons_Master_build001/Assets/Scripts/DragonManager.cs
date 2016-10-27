@@ -95,7 +95,6 @@ public class DragonManager : MonoBehaviour {
         {
             health.TakeDamage(3);
         }
-        //How to Take Damage on a certain dragon
 
         if (rb.drag >= 10)
         {
@@ -144,7 +143,6 @@ public class DragonManager : MonoBehaviour {
             desiredUp = terrainVert.normal;
 
             Debug.DrawRay(terrainVert.point, terrainVert.normal * 100, Color.green);
-            //transform.rotation = Quaternion.Slerp();
         }
 
         Vector3 right = Vector3.Cross(transform.up, desiredUp);
@@ -171,17 +169,17 @@ public class DragonManager : MonoBehaviour {
     void FixedUpdate()
     {
         //change animation based on position of left stick
-        if (device.LeftStickY > 0.05f)
+        if (device.LeftStickY > 0.99f || flyController.moveSpeed >= 15)
         {
             animator.SetBool("SetFlying", true);
             animator.SetBool("BankLeft", false);
             animator.SetBool("BankRight", false);
-            if (device.LeftStickX < -0.1f && flyController.moveSpeed >= 30)
+            if (device.LeftStickX < -0.1f && flyController.moveSpeed >= 15)
             {
                 animator.SetBool("BankLeft", true);
                 animator.SetBool("BankRight", false);
             }
-            else if (device.LeftStickX > 0.1f && flyController.moveSpeed >= 30)
+            else if (device.LeftStickX > 0.1f && flyController.moveSpeed >= 15)
             {
                 animator.SetBool("BankRight", true);
                 animator.SetBool("BankLeft", false);
