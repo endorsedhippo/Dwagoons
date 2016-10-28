@@ -10,10 +10,13 @@ public class DragonManager : MonoBehaviour
     public Animator animator;
     public Vector3 velocity;
 
+    public Rigidbody fireBall;
+    public Vector3 pointOfAttack;
+
     private DragonControllerFly flyController;
     private DragonControllerIdleFly idleFlyController;
     private DragonControllerGround groundController;
-    private HealthScript health;
+    private DragonStats stats;
     private InputDevice device;
     private Rigidbody rb;
 
@@ -44,7 +47,7 @@ public class DragonManager : MonoBehaviour
         flyController = GetComponent<DragonControllerFly>();
         groundController = GetComponent<DragonControllerGround>();
         idleFlyController = GetComponent<DragonControllerIdleFly>();
-        health = GetComponent<HealthScript>();
+        stats = GetComponent<DragonStats>();
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
 
@@ -106,14 +109,15 @@ public class DragonManager : MonoBehaviour
             }
         }
 
-        //How to Take Damage on a certain dragon
-        if (playerIndex == 0)
+        //Fireball attack
+        if (stats.CanFlame() && device.Action2.IsPressed)
         {
-            health.TakeDamage(1);
-        }
-        else if (playerIndex == 1)
-        {
-            health.TakeDamage(3);
+            GameObject fire = Instantiate(Resources.Load("fireBall") as GameObject,
+                transform.position + (transform.localRotation * pointOfAttack),
+                transform.rotation) as GameObject;
+            stats.ResetFlameCooldown();
+            fire.GetComponent<FireBall>().playerIndex = playerIndex;
+
         }
 
         if (rb.drag >= 10)
