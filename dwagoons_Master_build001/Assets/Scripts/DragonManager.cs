@@ -17,6 +17,26 @@ public class DragonManager : MonoBehaviour
     private InputDevice device;
     private Rigidbody rb;
 
+    //Public Values for Sam to Change
+    //To keep accurate... keep these values within 5.0f of the move speed of their respected fly script.
+    //These variables are in order from top to bottom in the script.
+
+    public float idleFlySpeedLimit = 7.0f; //the maximum speed the dragon gets to swap from idle Fly -> Fly
+    public float flyStartSpeed = 8.0f; //The starting speed when dragon goes into Fly... This is reset everytime Dragon leaves the Fly script.
+    public float flySpeedLimit = 7.9f; //The minimum speed the dragon gets to swap from Fly -> Idle Fly
+    public float idleFlyStartSpeed = 5.0f; //the starting speed when Dragon goes into IdleFly... this is reset everytime Dragon leaves IdleFlyScript.
+
+    public float XVelocityCap;
+    public float XVelocitySet = 1.65f; //Good idea to keep this within 1.0f of the Cap.
+    public float ZVelocityCap;
+    public float ZVelocitySet = 1.65f; //Good idea to keep this within 1.0f of the Cap.
+
+    public float groundedRayCastDistance = 1.2f; //The distance from the Dragons local transform of (0, 0, 0) to the ground which will turn Grounded on.
+
+    public float leftStickYValue = 0.99f; //The value of the left stick Y at which the dragon changes to the flying animation regardless of speed.
+    public float leftStickXValue = 0.1f; //The value of the left stick X at which the dragon will 'bank'.
+   
+
     
     // Use this for initialization
     void Start()
@@ -65,24 +85,24 @@ public class DragonManager : MonoBehaviour
             groundController.enabled = false;
         }
 
-        if (idleFlyController.moveSpeed >= 7)
+        if (idleFlyController.moveSpeed >= idleFlySpeedLimit)
         {
             if (idleFlyController.enabled == true)
             {
                 idleFlyController.enabled = false;
                 animator.SetBool("SetFlying", true);
                 flyController.enabled = true;
-                flyController.moveSpeed = 8.0f;
+                flyController.moveSpeed = flyStartSpeed;
             }
         }
-        if (flyController.moveSpeed <= 7.9f)
+        if (flyController.moveSpeed <= flySpeedLimit)
         {
             if (flyController.enabled == true)
             {
                 flyController.enabled = false;
                 animator.SetBool("SetFlying", false);
                 idleFlyController.enabled = true;
-                idleFlyController.moveSpeed = 5;
+                idleFlyController.moveSpeed = idleFlyStartSpeed;
             }
         }
 
@@ -105,25 +125,37 @@ public class DragonManager : MonoBehaviour
             rb.drag = 2;
         }
 
-        if (velocity.x > 1.7f)
-        {
-            velocity.x = 1.65f;
-        }
-        else if (velocity.x < -1.7f)
-        {
-            velocity.x = -1.65f;
-        }
-        if (velocity.z > 1.7f)
-        {
-            velocity.z = 1.65f;
-        }
-        else if (velocity.z < -1.7f)
-        {
-            velocity.z = -1.65f;
-        }
 
+        //Lock the velocity in the X and Z Vector to cap speed
+        if (velocity.x > XVelocityCap)
+        {
+            velocity.x = XVelocitySet;
+        }
+        else if (velocity.x < -XVelocityCap)
+        {
+            velocity.x = -XVelocitySet;
+        }
+        if (velocity.z > ZVelocityCap)
+        {
+            velocity.z = ZVelocitySet;
+        }
+        else if (velocity.z < -ZVelocityCap)
+        {
+            velocity.z = -ZVelocitySet;
+        }
+        
+
+        //Lock the Rotation of the transform on the x and Z axis
+        if(transform.rotation.z > 0 || transform.rotation.z < 0)
+        {
+            transform.localRotation = new Quaternion(0, transform.rotation.y, 0, 0);
+        }
+    }
+
+    void FixedUpdate()
+    {
         RaycastHit[] Hits =
-            Physics.SphereCastAll(transform.position, 0.1f + 0.1f, Vector2.down, 1.2f);
+           Physics.SphereCastAll(transform.position, 0.3f + 0.3f, Vector2.down, groundedRayCastDistance);
 
         foreach (RaycastHit hit in Hits)
         {
@@ -133,7 +165,23 @@ public class DragonManager : MonoBehaviour
             }
         }
 
-        
+        //Height Control
+        Vector3 velocity0 = rb.velocity;
+
+        if (device.LeftTrigger.IsPressed)
+        {
+            velocity0.y -= heightControl;
+            //rb.drag += 0.01f;
+
+        }
+        else if (device.RightTrigger.IsPressed)
+        {
+            velocity0.y += heightControl;
+            //rb.drag -= 0.03f;
+
+        }
+        rb.velocity = velocity0;
+
 
         RaycastHit terrainVert;
         Debug.DrawRay(transform.position, -Vector3.up * 100, Color.red);
@@ -153,43 +201,18 @@ public class DragonManager : MonoBehaviour
             transform.rotation = Quaternion.AngleAxis(2, right) * transform.rotation;
         }
 
-        
-
-       
-        
-    }
-
-    void FixedUpdate()
-    {
-        //Height Control
-        Vector3 velocity0 = rb.velocity;
-
-        if (device.LeftTrigger.IsPressed)
-        {
-            velocity0.y -= heightControl;
-            //rb.drag += 0.01f;
-
-        }
-        else if (device.RightTrigger.IsPressed)
-        {
-            velocity0.y += heightControl;
-            //rb.drag -= 0.03f;
-
-        }
-        rb.velocity = velocity0;
-
         //change animation based on position of left stick
-        if (device.LeftStickY > 0.99f || flyController.moveSpeed >= 15)
+        if (device.LeftStickY > leftStickYValue || flyController.moveSpeed >= 15)
         {
             animator.SetBool("SetFlying", true);
             animator.SetBool("BankLeft", false);
             animator.SetBool("BankRight", false);
-            if (device.LeftStickX < -0.1f && flyController.moveSpeed >= 15)
+            if (device.LeftStickX < -leftStickXValue && flyController.moveSpeed >= 15)
             {
                 animator.SetBool("BankLeft", true);
                 animator.SetBool("BankRight", false);
             }
-            else if (device.LeftStickX > 0.1f && flyController.moveSpeed >= 15)
+            else if (device.LeftStickX > leftStickXValue && flyController.moveSpeed >= 15)
             {
                 animator.SetBool("BankRight", true);
                 animator.SetBool("BankLeft", false);

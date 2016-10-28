@@ -16,6 +16,17 @@ public class NewCamera : MonoBehaviour {
     private bool cameraDecrease;
     private bool lerp;
 
+    //Public Values for Sam to Change
+    //To keep accurate... keep these values within 5.0f of the move speed of their respected fly script.
+    //These variables are in order from top to bottom in the script.
+
+    public float positionYChange = 7; //A factor of 2 is the best way to go.. either half or double the Target Position Y value.
+    public float positionZChange = 2; //A factor of 2 is the best way to go.. either half or double the Target Position Z value.
+
+    public int eulerAnglesSet = 40; //This sets the limit the camera can rotate above or below the dragons position... 
+                                    //shouldnt have to compensate for negative rotation as its this values degrees from the original rotation
+
+
     // Use this for initialization
     void Start ()
     {
@@ -42,7 +53,7 @@ public class NewCamera : MonoBehaviour {
             targetPosition = positions[0];
             if (device.RightStickButton.WasPressed)
             {
-                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + 7, transform.localPosition.z * 2);
+                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + positionYChange, transform.localPosition.z * positionZChange);
                 transform.rotation = transform.rotation;
                 closeCamera = false;
             }
@@ -52,7 +63,7 @@ public class NewCamera : MonoBehaviour {
             targetPosition = positions[1];
             if (device.RightStickButton.WasPressed)
             {
-                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - 7, transform.localPosition.z / 2);
+                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - positionYChange, transform.localPosition.z / positionZChange);
                 transform.rotation = transform.rotation;
                 closeCamera = true;
             }
@@ -68,11 +79,11 @@ public class NewCamera : MonoBehaviour {
             this.transform.RotateAround(target.transform.position, Vector3.up, -cameraRotateSpeed * Time.deltaTime);
         }
 
-        if (device.RightStickY.Value > 0 && transform.eulerAngles.x < 40)
+        if (device.RightStickY.Value > 0 && transform.eulerAngles.x < eulerAnglesSet)
         {
             this.transform.RotateAround(target.transform.position, transform.right, cameraRotateSpeed * Time.deltaTime);
         }
-        else if (device.RightStickY.Value < 0 && transform.eulerAngles.x < 40)
+        else if (device.RightStickY.Value < 0 && transform.eulerAngles.x < eulerAnglesSet)
         {
             this.transform.RotateAround(target.transform.position, transform.right, -cameraRotateSpeed * Time.deltaTime);
         }

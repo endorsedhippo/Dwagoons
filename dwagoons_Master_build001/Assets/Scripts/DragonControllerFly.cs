@@ -15,7 +15,21 @@ public class DragonControllerFly : MonoBehaviour
 
     private InputDevice device;
     private DragonManager manager;
-    
+
+    //Public Values for Sam to Change
+    //To keep accurate... keep these values within 5.0f of the move speed of their respected fly script.
+    //These variables are in order from top to bottom in the script.
+
+    public float moveSpeedValue = 15; //The value at which turning becomes available. This value is used in the Manager script to control animations. 
+    public float leftStickXValue = 0.1f; //The value of the left stick X at which the dragon will 'strafe'.
+    public float turnCircle = 0.7f; //The turning circle of the dragon.
+
+    public float leftStickYValue = 0.1f; //The value of the left stick Y at which the dragon will move forwards and backwards... this will effect the move speed variable slightly.
+
+
+    public float moveSpeedCap = 40; //The max limit of the dragons speed;
+
+
 
     // Use this for initialization
     void Start()
@@ -36,30 +50,30 @@ public class DragonControllerFly : MonoBehaviour
     {
         
         //Movement
-        if(moveSpeed >= 15)
+        if(moveSpeed >= moveSpeedValue)
         {
-            if (device.LeftStickX.Value < -0.1f)
+            if (device.LeftStickX.Value < -leftStickXValue)
             {//Left
             
                 manager.velocity -= transform.right * Time.deltaTime;
-                transform.Rotate(0, -0.7f, 0);
+                transform.Rotate(0, -turnCircle, 0);
             }
-            else if (device.LeftStickX.Value > 0.1f)
+            else if (device.LeftStickX.Value > leftStickXValue)
             {//Right
            
                 manager.velocity += transform.right * Time.deltaTime;
-                transform.Rotate(0, 0.7f, 0);
+                transform.Rotate(0, turnCircle, 0);
             }
         }
         if (device.LeftStickY.Value == 1)
         {
             manager.velocity += transform.forward * Time.deltaTime * moveSpeed;
         }
-        if (device.LeftStickY.Value < -0.1f)
+        if (device.LeftStickY.Value < -leftStickYValue)
         {//Backwards
             moveSpeed -= 1.0f;
         }
-        else if (device.LeftStickY.Value > 0.1f)
+        else if (device.LeftStickY.Value > leftStickYValue)
         {//Forwards
             moveSpeed += 0.2f;
             manager.velocity += transform.forward * Time.deltaTime;
@@ -79,9 +93,9 @@ public class DragonControllerFly : MonoBehaviour
         transform.Rotate(0, 0, 0);
 
 
-        if(moveSpeed >= 40)
+        if(moveSpeed >= moveSpeedCap)
         {
-            moveSpeed = 40;
+            moveSpeed = moveSpeedCap;
         }
 
     }

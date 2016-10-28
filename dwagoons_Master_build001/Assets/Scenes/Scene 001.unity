@@ -18205,6 +18205,9 @@ MonoBehaviour:
   playerIndex: 0
   cameraRotateSpeed: 30
   targetPosition: {x: 0, y: 0, z: 0}
+  positionYChange: 7
+  positionZChange: 2
+  eulerAnglesSet: 40
 --- !u!124 &613907535
 Behaviour:
   m_ObjectHideFlags: 0
@@ -29382,6 +29385,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   playerIndex: 0
+  moveSpeedValue: 15
+  leftStickXValue: 0.1
+  turnCircle: 0.85
+  leftStickYValue: 0.1
+  moveSpeedCap: 40
 --- !u!114 &1585321460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29396,6 +29404,10 @@ MonoBehaviour:
   playerIndex: 0
   moveSpeed: 5
   strafeSpeed: 10
+  leftStickXValue: 0.1
+  leftStickYValue: 0.1
+  rightStickXValue: 0.1
+  rotateOnSpot: 80
 --- !u!114 &1585321461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29425,6 +29437,17 @@ MonoBehaviour:
   isGrounded: 0
   animator: {fileID: 364329882}
   velocity: {x: 0, y: 0, z: 0}
+  idleFlySpeedLimit: 7
+  flyStartSpeed: 8
+  flySpeedLimit: 7.9
+  idleFlyStartSpeed: 5
+  XVelocityCap: 1.7
+  XVelocitySet: 1.65
+  ZVelocityCap: 1.7
+  ZVelocitySet: 1.65
+  groundedRayCastDistance: 1.2
+  leftStickYValue: 0.99
+  leftStickXValue: 0.1
 --- !u!95 &1585321463
 Animator:
   serializedVersion: 3
@@ -29452,8 +29475,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: -15.31, y: 7.2057953, z: -14.75}
+  m_Center: {x: 0, y: 4.05, z: 0}
 --- !u!4 &1585321466
 Transform:
   m_ObjectHideFlags: 0
