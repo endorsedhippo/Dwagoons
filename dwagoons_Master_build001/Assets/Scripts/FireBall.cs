@@ -6,6 +6,7 @@ public class FireBall : MonoBehaviour {
     public int playerIndex;
     public float speed = 100;
     public float timeUntilDestroy = 3;
+    public float damage = 20;
 
     float lifeTimer = 0;
 
@@ -27,5 +28,17 @@ public class FireBall : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
 
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "Player")
+        {
+            if (collision.transform.GetComponent<DragonManager>().playerIndex != playerIndex)
+            {
+                collision.transform.GetComponent<DragonStats>().currentHealth -= damage;
+                Destroy(gameObject);
+            }
+        }
     }
 }
