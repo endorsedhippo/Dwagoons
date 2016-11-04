@@ -2719,8 +2719,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 36013233}
   m_AABB:
-    m_Center: {x: 0.0000038146973, y: 3.4825745, z: -1.0819244}
-    m_Extent: {x: 30.244385, y: 16.443453, z: 21.381401}
+    m_Center: {x: 0, y: 3.4825745, z: -1.0819168}
+    m_Extent: {x: 30.244383, y: 16.443453, z: 21.381393}
   m_DirtyAABB: 0
 --- !u!183 &141223076
 Cloth:
@@ -22535,64 +22535,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.8183086, y: 0, z: -0.24174881}
     m_Extent: {x: 0.9629576, y: 0.20749664, z: 0.2366705}
   m_DirtyAABB: 0
---- !u!1001 &641746706
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1431212632}
-    m_Modifications:
-    - target: {fileID: 400000, guid: 828deb90a38d8a94b99b3ad60165a80f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 394.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 828deb90a38d8a94b99b3ad60165a80f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 7.84
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 828deb90a38d8a94b99b3ad60165a80f, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 388.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 828deb90a38d8a94b99b3ad60165a80f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 828deb90a38d8a94b99b3ad60165a80f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 828deb90a38d8a94b99b3ad60165a80f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 828deb90a38d8a94b99b3ad60165a80f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 828deb90a38d8a94b99b3ad60165a80f, type: 3}
-      propertyPath: m_RootOrder
-      value: 68
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 828deb90a38d8a94b99b3ad60165a80f, type: 3}
-      propertyPath: m_Name
-      value: egyptian_obelisk (5)
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 828deb90a38d8a94b99b3ad60165a80f, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 828deb90a38d8a94b99b3ad60165a80f, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 828deb90a38d8a94b99b3ad60165a80f, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 828deb90a38d8a94b99b3ad60165a80f, type: 3}
-  m_IsPrefabParent: 0
 --- !u!1 &643302854
 GameObject:
   m_ObjectHideFlags: 0
@@ -28778,7 +28720,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9ae029f3eda4c9645ad6b0d3501d2a12, type: 3}
       propertyPath: m_RootOrder
-      value: 69
+      value: 68
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 9ae029f3eda4c9645ad6b0d3501d2a12, type: 3}
       propertyPath: m_Name
@@ -31654,7 +31596,7 @@ Light:
   serializedVersion: 7
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 0.4
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -43791,7 +43733,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 15.5
+      value: 10.1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
       propertyPath: m_LocalPosition.z
@@ -47674,7 +47616,6 @@ Transform:
   - {fileID: 1772503347}
   - {fileID: 1924612799}
   - {fileID: 1416831660}
-  - {fileID: 1550159484}
   - {fileID: 1172550818}
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -49122,10 +49063,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.030324817, y: 0.2975485, z: -0.5505147}
     m_Extent: {x: 0.16095173, y: 0.10394654, z: 0.113232136}
   m_DirtyAABB: 0
---- !u!4 &1550159484 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 400000, guid: 828deb90a38d8a94b99b3ad60165a80f, type: 3}
-  m_PrefabInternal: {fileID: 641746706}
 --- !u!1 &1561779493
 GameObject:
   m_ObjectHideFlags: 0
@@ -49651,7 +49588,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1585321457}
   m_LocalRotation: {x: -0, y: 0.7938813, z: -0, w: 0.60807276}
-  m_LocalPosition: {x: 123.2, y: 61.3, z: 271.8}
+  m_LocalPosition: {x: 123.2, y: 132.7, z: 271.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 104.79101, z: 0}
   m_Children:
@@ -54119,7 +54056,7 @@ Light:
   serializedVersion: 7
   m_Type: 1
   m_Color: {r: 0.88235295, g: 0.8658871, b: 0.73313147, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 0.4
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
