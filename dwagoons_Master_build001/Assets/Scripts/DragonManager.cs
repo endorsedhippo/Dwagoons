@@ -10,10 +10,13 @@ public class DragonManager : MonoBehaviour
     public Animator animator;
     public Vector3 velocity;
 
+    public Rigidbody fireBall;
+    public Vector3 pointOfAttack;
+
     private DragonControllerFly flyController;
     private DragonControllerIdleFly idleFlyController;
     private DragonControllerGround groundController;
-    private HealthScript health;
+    private DragonStats stats;
     private InputDevice device;
     private Rigidbody rb;
 
@@ -44,7 +47,7 @@ public class DragonManager : MonoBehaviour
         flyController = GetComponent<DragonControllerFly>();
         groundController = GetComponent<DragonControllerGround>();
         idleFlyController = GetComponent<DragonControllerIdleFly>();
-        health = GetComponent<HealthScript>();
+        stats = GetComponent<DragonStats>();
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
 
@@ -77,12 +80,16 @@ public class DragonManager : MonoBehaviour
             animator.SetBool("IsGrounded", true);
             idleFlyController.enabled = false;
             groundController.enabled = true;
+
+            rb.useGravity = true;
         }
         else
         {
             animator.SetBool("IsGrounded", false);
             //StaminaUpdate();
             groundController.enabled = false;
+            
+            rb.useGravity = false;
         }
 
         if (idleFlyController.moveSpeed >= idleFlySpeedLimit)
@@ -106,14 +113,15 @@ public class DragonManager : MonoBehaviour
             }
         }
 
-        //How to Take Damage on a certain dragon
-        if (playerIndex == 0)
+        //Fireball attack
+        if (stats.CanFlame() && device.Action2.IsPressed)
         {
-            health.TakeDamage(1);
-        }
-        else if (playerIndex == 1)
-        {
-            health.TakeDamage(3);
+            GameObject fire = Instantiate(Resources.Load("fireBall") as GameObject,
+                transform.position + (transform.localRotation * pointOfAttack),
+                transform.rotation) as GameObject;
+            stats.ResetFlameCooldown();
+            fire.GetComponent<FireBall>().playerIndex = playerIndex;
+
         }
 
         if (rb.drag >= 10)
@@ -124,7 +132,6 @@ public class DragonManager : MonoBehaviour
         {
             rb.drag = 2;
         }
-
 
         //Lock the velocity in the X and Z Vector to cap speed
         if (velocity.x > XVelocityCap)
@@ -145,11 +152,11 @@ public class DragonManager : MonoBehaviour
         }
         
 
-        //Lock the Rotation of the transform on the x and Z axis
-        if(transform.rotation.z > 0 || transform.rotation.z < 0)
-        {
-            transform.localRotation = new Quaternion(0, transform.rotation.y, 0, 0);
-        }
+        ////Lock the Rotation of the transform on the x and Z axis
+        //if(transform.rotation.z > 0 || transform.rotation.z < 0)
+        //{
+        //    transform.localRotation = new Quaternion(0, transform.rotation.y, 0, 0);
+        //}
     }
 
     void FixedUpdate()
@@ -159,26 +166,31 @@ public class DragonManager : MonoBehaviour
 
         foreach (RaycastHit hit in Hits)
         {
-            if (hit.normal.y > 0.05f && hit.rigidbody != rb)
+            if (hit.normal.y < 1.0f && hit.rigidbody != rb)
             {
                 isGrounded = true;
             }
+            else if(hit.normal.y > 1.0f)
+            {
+                isGrounded = false;
+            }
         }
+        
 
-        //Height Control
+        //Height 
         Vector3 velocity0 = rb.velocity;
 
-        if (device.LeftTrigger.IsPressed)
+        if (device.LeftTrigger.IsPressed && isGrounded == false)
         {
             velocity0.y -= heightControl;
             //rb.drag += 0.01f;
 
         }
-        else if (device.RightTrigger.IsPressed)
+        else if (device.RightTrigger.IsPressed && isGrounded == false)
         {
             velocity0.y += heightControl;
             //rb.drag -= 0.03f;
-
+            isGrounded = false;
         }
         rb.velocity = velocity0;
 
@@ -201,30 +213,49 @@ public class DragonManager : MonoBehaviour
             transform.rotation = Quaternion.AngleAxis(2, right) * transform.rotation;
         }
 
-        //change animation based on position of left stick
-        if (device.LeftStickY > leftStickYValue || flyController.moveSpeed >= 15)
+        //change animation based on position of left stick when flying
+        if(isGrounded == false)
         {
-            animator.SetBool("SetFlying", true);
-            animator.SetBool("BankLeft", false);
-            animator.SetBool("BankRight", false);
-            if (device.LeftStickX < -leftStickXValue && flyController.moveSpeed >= 15)
+            if (device.LeftStickY > leftStickYValue || flyController.moveSpeed >= 15)
             {
-                animator.SetBool("BankLeft", true);
-                animator.SetBool("BankRight", false);
-            }
-            else if (device.LeftStickX > leftStickXValue && flyController.moveSpeed >= 15)
-            {
-                animator.SetBool("BankRight", true);
+                animator.SetBool("SetFlying", true);
                 animator.SetBool("BankLeft", false);
+                animator.SetBool("BankRight", false);
+                if (device.LeftStickX < -leftStickXValue && flyController.moveSpeed >= 15)
+                {
+                    animator.SetBool("BankLeft", true);
+                    animator.SetBool("BankRight", false);
+                }
+                else if (device.LeftStickX > leftStickXValue && flyController.moveSpeed >= 15)
+                {
+                    animator.SetBool("BankRight", true);
+                    animator.SetBool("BankLeft", false);
+                }
+                else return;
             }
-            else return;
+            else
+            {
+                animator.SetBool("SetFlying", false);
+                animator.SetBool("BankLeft", false);
+                animator.SetBool("BankRight", false);
+
+                
+            }
         }
+        //change animation based on position of left stick when grounded
         else
         {
-            animator.SetBool("SetFlying", false);
-            animator.SetBool("BankLeft", false);
-            animator.SetBool("BankRight", false);
+            if (device.LeftStickY.Value > leftStickYValue || device.LeftStickX.Value > leftStickXValue || device.LeftStickX.Value < -leftStickXValue)
+            {
+                animator.SetBool("isWalking", true);
+
+            }
+            else
+            {
+                animator.SetBool("isWalking", false);
+            }
         }
+
     }
 
     //private void StaminaUpdate()
