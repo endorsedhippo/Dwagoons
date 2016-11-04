@@ -152,11 +152,6 @@ public class DragonManager : MonoBehaviour
         }
         
 
-        ////Lock the Rotation of the transform on the x and Z axis
-        //if(transform.rotation.z > 0 || transform.rotation.z < 0)
-        //{
-        //    transform.localRotation = new Quaternion(0, transform.rotation.y, 0, 0);
-        //}
     }
 
     void FixedUpdate()
@@ -166,8 +161,13 @@ public class DragonManager : MonoBehaviour
 
         foreach (RaycastHit hit in Hits)
         {
+            if (device.RightTrigger.IsPressed)
+            {
+                isGrounded = false;
+            }
             if (hit.normal.y < 1.0f && hit.rigidbody != rb)
             {
+
                 isGrounded = true;
             }
             else if(hit.normal.y > 1.0f)
@@ -235,6 +235,7 @@ public class DragonManager : MonoBehaviour
             }
             else
             {
+                animator.SetBool("IsGrounded", true);
                 animator.SetBool("SetFlying", false);
                 animator.SetBool("BankLeft", false);
                 animator.SetBool("BankRight", false);
@@ -247,12 +248,12 @@ public class DragonManager : MonoBehaviour
         {
             if (device.LeftStickY.Value > leftStickYValue || device.LeftStickX.Value > leftStickXValue || device.LeftStickX.Value < -leftStickXValue)
             {
-                animator.SetBool("isWalking", true);
+                animator.SetBool("IsWalking", true);
 
             }
             else
             {
-                animator.SetBool("isWalking", false);
+                animator.SetBool("IsWalking", false);
             }
         }
 
