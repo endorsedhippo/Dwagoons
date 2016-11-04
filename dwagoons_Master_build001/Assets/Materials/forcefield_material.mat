@@ -229,7 +229,7 @@ Material:
       second: {r: 0.2069637, g: 0.6862037, b: 0.9705882, a: 1}
     - first:
         name: _Highlight_Color
-      second: {r: 0.9284572, g: 0.2069637, b: 0.9705882, a: 1}
+      second: {r: 0.17290226, g: 0.72279555, b: 0.9044118, a: 1}
     - first:
         name: _Rim_Glow_Color
       second: {r: 1, g: 1, b: 1, a: 1}
