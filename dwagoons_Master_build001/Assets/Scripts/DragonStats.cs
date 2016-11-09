@@ -1,18 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
+using InControl;
 
 using Image = UnityEngine.UI.Image;
 
 public class DragonStats : MonoBehaviour {
+
+    int playerIndex;
 
     public float maxHealth = 100;
     public float currentHealth;
     public float healthBarSize = 100;
     public float healthSpeed = 0.2f;
 
-    public float flameCooldownLength;
-    float flameCooldown;
-    public AttackIcons fireAttack;
+    [Header("Fire Ball")]
+    public Rigidbody fireBallPrefab;
+    public Vector3 pointOfAttack;
+    public float ballCooldownLength;
+    float ballCooldown;
+    public AttackIcons ballAttackSprites;
+
+    [Header("Flame Breath")]
+    public float range = 100;
+    [Range(0, 1.0f)]
+    public float angle = 21;
+    public float breathDamage;
 
     public Image healthFill;
     public Image damageFill;
@@ -20,6 +32,9 @@ public class DragonStats : MonoBehaviour {
     float healthFillScaleY;
     RectTransform healthFillTransform;
     RectTransform damageFillTransform;
+    Transform enemyDragon;
+    DragonStats enemyStats;
+    InputDevice device;
 
     // Use this for initialization
     void Start ()
@@ -32,8 +47,19 @@ public class DragonStats : MonoBehaviour {
         healthFillScaleY = healthFillTransform.localScale.y;
         //Set Healthbar
 
-        flameCooldown = 0;
-        fireAttack.SetRect();
+        ballCooldown = 0;
+        ballAttackSprites.SetRect(); 
+        playerIndex = GetComponent<DragonManager>().playerIndex;
+
+        //Find enemy dragon
+        GameObject[] dragons = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject d in dragons)
+        {
+            if (d.GetComponent<DragonManager>().playerIndex != playerIndex)
+                enemyDragon = d.transform;
+        }
+        enemyStats = enemyDragon.GetComponent<DragonStats>();
+        device = InputManager.Devices[playerIndex];
     }
 	
 	// Update is called once per frame
@@ -47,21 +73,60 @@ public class DragonStats : MonoBehaviour {
         healthFillTransform.localScale = new Vector3(healthFillScaleX, healthFillScaleY * (1 / (maxHealth / currentHealth)), 1);
         damageFillTransform.localScale = Vector3.Lerp(damageFillTransform.localScale, healthFillTransform.localScale, healthSpeed);
 
-        if (flameCooldown > 0) flameCooldown -= Time.deltaTime;
-        fireAttack.ManageIcons(flameCooldown, flameCooldownLength);
+        if (ballCooldown > 0) ballCooldown -= Time.deltaTime;
+        ballAttackSprites.ManageIcons(ballCooldown, ballCooldownLength);
 
         if (currentHealth < 0) currentHealth = 0;
 
+        CastFlameBreath();
+        CastFireBall();
+
     }
 
-    public bool CanFlame()
+    // debugging, remove later
+    public float coneX;
+    public float coneY;
+
+    void CastFlameBreath()
     {
-        return (flameCooldown <= 0) ? true : false;
+        if (device.Action1.IsPressed)
+        {
+            Vector3 posD = transform.position;
+            Vector3 posT = enemyDragon.position;
+            Vector3 dir = transform.forward;
+            float x = Vector3.Dot(dir, posT - posD);
+            float y = Mathf.Sqrt(Vector3.SqrMagnitude(posT - posD) - (x * x));
+
+            coneX = x;
+            coneY = y;
+
+            if (x > 0 && x < range && y < (x * angle))
+                enemyStats.currentHealth -= breathDamage * Time.deltaTime;
+        }
     }
 
-    public void ResetFlameCooldown()
+    void CastFireBall()
     {
-        flameCooldown = flameCooldownLength;
+        //Fireball attack
+        if (CanFireball() && device.Action2.IsPressed)
+        {
+            GameObject fire = Instantiate(Resources.Load("fireBall") as GameObject,
+                transform.position + (transform.localRotation * pointOfAttack),
+                transform.rotation) as GameObject;
+            ResetBallCooldown();
+            fire.GetComponent<FireBall>().playerIndex = playerIndex;
+
+        }
+    }
+
+    public bool CanFireball()
+    {
+        return (ballCooldown <= 0) ? true : false;
+    }
+
+    public void ResetBallCooldown()
+    {
+        ballCooldown = ballCooldownLength;
     }
 
     [System.Serializable]
@@ -88,4 +153,5 @@ public class DragonStats : MonoBehaviour {
     }
 
     
+
 }

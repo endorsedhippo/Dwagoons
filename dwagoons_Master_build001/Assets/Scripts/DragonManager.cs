@@ -113,17 +113,6 @@ public class DragonManager : MonoBehaviour
             }
         }
 
-        //Fireball attack
-        if (stats.CanFlame() && device.Action2.IsPressed)
-        {
-            GameObject fire = Instantiate(Resources.Load("fireBall") as GameObject,
-                transform.position + (transform.localRotation * pointOfAttack),
-                transform.rotation) as GameObject;
-            stats.ResetFlameCooldown();
-            fire.GetComponent<FireBall>().playerIndex = playerIndex;
-
-        }
-
         if (rb.drag >= 10)
         {
             rb.drag = 10;
