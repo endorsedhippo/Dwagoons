@@ -41,11 +41,11 @@ public class DragonControllerIdleFly : MonoBehaviour {
 	void Update ()
     {
         //Movement
-        if (device.LeftStickX.Value < -leftStickXValue)
+        if (device.LeftBumper < -leftStickXValue)
         {//Left
             transform.position -= transform.right * Time.deltaTime * strafeSpeed;
         }
-        else if (device.LeftStickX.Value > leftStickXValue)
+        else if (device.RightBumper > leftStickXValue)
         {//Right
             transform.position += transform.right * Time.deltaTime * strafeSpeed;
             //transform.Rotate(0, 60 * Time.deltaTime, 0, Space.World);
@@ -63,11 +63,11 @@ public class DragonControllerIdleFly : MonoBehaviour {
 
 
         //Rotate
-        if(device.RightStickX.Value < -rightStickXValue)
+        if(device.LeftStickX.Value < -rightStickXValue)
         {
             transform.Rotate(0, -rotateOnSpot * Time.deltaTime, 0, Space.World);
         }
-        else if(device.RightStickX.Value > rightStickXValue)
+        else if(device.LeftStickX.Value > rightStickXValue)
         {
             transform.Rotate(0, rotateOnSpot * Time.deltaTime, 0, Space.World);
         }

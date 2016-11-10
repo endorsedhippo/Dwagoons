@@ -197,9 +197,10 @@ public class DragonManager : MonoBehaviour
         }
 
         Vector3 right = Vector3.Cross(transform.up, desiredUp);
-        if (right.magnitude > 0.1f)
+        if (right.magnitude > 0.008f)
         {
-            transform.rotation = Quaternion.AngleAxis(2, right) * transform.rotation;
+            float maxAngle = Mathf.Asin(right.magnitude) * 180f / 3.14f;
+            transform.rotation = Quaternion.AngleAxis(Mathf.Min(2, maxAngle), right) * transform.rotation;
         }
 
         //change animation based on position of left stick when flying
