@@ -61,7 +61,7 @@ public class oasisMechanic : MonoBehaviour
 	IEnumerator OasisBack(float time)
 	{
 		oasis.position = oasisTarget;
-		yield return new WaitForSeconds (5);
+		yield return new WaitForSeconds (15);
 		float elapsedTime = 0;
 		while (elapsedTime < time) 
 		{

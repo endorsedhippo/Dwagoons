@@ -12,6 +12,9 @@ public class DragonStats : MonoBehaviour {
     public float currentHealth;
     public float healthBarSize = 100;
     public float healthSpeed = 0.2f;
+	public Animator animator;
+	public Rigidbody rb;
+	public bool IsDead = false;
 
     [Header("Fire Ball")]
     public Rigidbody fireBallPrefab;
@@ -19,6 +22,7 @@ public class DragonStats : MonoBehaviour {
     public float ballCooldownLength;
     float ballCooldown;
     public AttackIcons ballAttackSprites;
+
 
     [Header("Flame Breath")]
     public float range = 100;
@@ -78,10 +82,21 @@ public class DragonStats : MonoBehaviour {
 
         if (currentHealth < 0) currentHealth = 0;
 
+
         CastFlameBreath();
         CastFireBall();
 
+
     }
+	void FixedUpdate()
+	{
+		if (currentHealth == 0) 
+		{
+			animator.SetBool ("IsDead", true);	
+			IsDead = true;
+			rb.useGravity = true;
+		}
+	}
 
     // debugging, remove later
     public float coneX;
@@ -110,9 +125,10 @@ public class DragonStats : MonoBehaviour {
         //Fireball attack
         if (CanFireball() && device.Action2.IsPressed)
         {
-            GameObject fire = Instantiate(Resources.Load("fireBall") as GameObject,
+            GameObject fire = Instantiate(Resources.Load("fireBallUpdated") as GameObject,
                 transform.position + (transform.localRotation * pointOfAttack),
                 transform.rotation) as GameObject;
+			 
             ResetBallCooldown();
             fire.GetComponent<FireBall>().playerIndex = playerIndex;
 
