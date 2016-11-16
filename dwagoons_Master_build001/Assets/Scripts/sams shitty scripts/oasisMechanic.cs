@@ -10,10 +10,12 @@ public class oasisMechanic : MonoBehaviour
 	Vector3 oasisTarget;
 	private Vector3 oasisSecondTarget;
 	public Transform position1;
-	public GameObject Firstplayer;
-	public GameObject Secondplayer;
 	private float timer;
 	private BoxCollider col;
+	public int playerIndex;
+	public float hp;
+	public GameObject particle;
+	public Transform transform;
 
 	void Start()
 	{
@@ -30,13 +32,14 @@ public class oasisMechanic : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.gameObject == Firstplayer)
+		if (other.transform.tag == "Player") 
 		{
-			StartCoroutine(RaiseOasis(raiseTime));
-		}
-		if(other.gameObject == Secondplayer)
-		{
-			StartCoroutine(RaiseOasis(raiseTime));
+			if (other.GetComponent<DragonManager> ().playerIndex != playerIndex) 
+			{
+				other.GetComponent<DragonStats> ().currentHealth += hp;
+			}
+			StartCoroutine (RaiseOasis (raiseTime));
+			Instantiate (particle, transform.position, transform.rotation);
 		}
 	}
 	IEnumerator RaiseOasis(float time)

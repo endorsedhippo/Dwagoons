@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b211b35149d07804ca8d421633c6137d
+timeCreated: 1478756517
+licenseType: Pro
+ShaderImporter:
+  defaultTextures:
+  - _MainTex: {fileID: 2800000, guid: bd5ff0886b3564940aa761726d7d5183, type: 3}
+  - _BumpMap: {fileID: 2800000, guid: 628d610239f857c499e8da44ac00f306, type: 3}
+  - _MetalGloss: {fileID: 2800000, guid: 2ea45a4c875cb384190302d4effe2040, type: 3}
+  - _Emissive: {fileID: 2800000, guid: 8d4f0f0e45bc876479699ee701329082, type: 3}
+  - _EmissiveGradient: {fileID: 2800000, guid: 4f772475faabdba4698414c9aa2f8d1e, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

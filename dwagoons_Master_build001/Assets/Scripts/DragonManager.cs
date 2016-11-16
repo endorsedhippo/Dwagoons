@@ -71,10 +71,10 @@ public class DragonManager : MonoBehaviour
             groundController = GetComponent<DragonControllerGround>();
         }
 
-        if (playerIndex == 1)
+       /* if (playerIndex == 1)
         {
             return;
-        }
+        }*/
         if (isGrounded == true)
         {
             animator.SetBool("IsGrounded", true);
@@ -225,7 +225,7 @@ public class DragonManager : MonoBehaviour
             }
             else
             {
-                animator.SetBool("IsGrounded", true);
+               // animator.SetBool("IsGrounded", true);
                 animator.SetBool("SetFlying", false);
                 animator.SetBool("BankLeft", false);
                 animator.SetBool("BankRight", false);

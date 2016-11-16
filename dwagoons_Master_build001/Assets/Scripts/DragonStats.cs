@@ -81,6 +81,7 @@ public class DragonStats : MonoBehaviour {
         ballAttackSprites.ManageIcons(ballCooldown, ballCooldownLength);
 
         if (currentHealth < 0) currentHealth = 0;
+		if (currentHealth > 100) currentHealth = 100;
 
 
         CastFlameBreath();
@@ -94,6 +95,10 @@ public class DragonStats : MonoBehaviour {
 		{
 			animator.SetBool ("IsDead", true);	
 			IsDead = true;
+
+			GetComponent<DragonManager> ().enabled = false;
+			GetComponent<DragonControllerIdleFly> ().enabled = false;
+			GetComponent<DragonControllerFly> ().enabled = false;
 			rb.useGravity = true;
 		}
 	}
@@ -104,7 +109,7 @@ public class DragonStats : MonoBehaviour {
 
     void CastFlameBreath()
     {
-        if (device.Action1.IsPressed)
+        if (device.Action1.IsPressed && !IsDead)
         {
             Vector3 posD = transform.position;
             Vector3 posT = enemyDragon.position;
@@ -123,9 +128,9 @@ public class DragonStats : MonoBehaviour {
     void CastFireBall()
     {
         //Fireball attack
-        if (CanFireball() && device.Action2.IsPressed)
+		if (CanFireball() && device.Action2.IsPressed && !IsDead)
         {
-            GameObject fire = Instantiate(Resources.Load("fireBallUpdated") as GameObject,
+            GameObject fire = Instantiate(Resources.Load("FireBall 1") as GameObject,
                 transform.position + (transform.localRotation * pointOfAttack),
                 transform.rotation) as GameObject;
 			 

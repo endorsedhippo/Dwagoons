@@ -8,7 +8,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: forcefield_material
   m_Shader: {fileID: 4800000, guid: 425ea3311b04f994faa729a5c5f6168d, type: 3}
-  m_ShaderKeywords: _EMISSION
+  m_ShaderKeywords: _CUSTOM_RIM_GLOW_COLOR_ON _EMISSION
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -70,6 +70,18 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
+        name: _ProximityTexture
+      second:
+        m_Texture: {fileID: 2800000, guid: 86f4aee481d92cb4da5dbf5ddc11f149, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _ProxyTexture
+      second:
+        m_Texture: {fileID: 2800000, guid: 86f4aee481d92cb4da5dbf5ddc11f149, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
         name: _Refraction
       second:
         m_Texture: {fileID: 2800000, guid: 44e4f1eca71ac2f458c3f28b8cb1a6dd, type: 3}
@@ -99,22 +111,43 @@ Material:
         m_Texture: {fileID: 2800000, guid: 44e4f1eca71ac2f458c3f28b8cb1a6dd, type: 3}
         m_Scale: {x: 8, y: 4}
         m_Offset: {x: 0, y: 0}
+    - first:
+        name: _node_5417
+      second:
+        m_Texture: {fileID: 2800000, guid: 86f4aee481d92cb4da5dbf5ddc11f149, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - first:
         name: _BumpScale
       second: 1
     - first:
         name: _Custom_Rim_Glow_Color
-      second: 0
+      second: 1
     - first:
         name: _Cutoff
       second: 0.5
+    - first:
+        name: _DepthFalloff
+      second: 9.39
+    - first:
+        name: _DepthOpacity
+      second: 0.9
+    - first:
+        name: _DepthTransitionFalloff
+      second: 5.4
+    - first:
+        name: _DepthTransition_Distance
+      second: 98.06
     - first:
         name: _DetailNormalMapScale
       second: 1
     - first:
         name: _DstBlend
       second: 0
+    - first:
+        name: _Falloff
+      second: 4.4
     - first:
         name: _Fresnel_Amount
       second: 1.42
@@ -143,6 +176,15 @@ Material:
         name: _Metallic
       second: 0
     - first:
+        name: _MinOpacity
+      second: 0
+    - first:
+        name: _Min_Opacity
+      second: 0.5
+    - first:
+        name: _Min_Transparancy
+      second: 0.5
+    - first:
         name: _Mode
       second: 0
     - first:
@@ -151,6 +193,18 @@ Material:
     - first:
         name: _Parallax
       second: 0.02
+    - first:
+        name: _ProxyOpacity
+      second: 0.8
+    - first:
+        name: _ProxyPanSpeed
+      second: 0.03
+    - first:
+        name: _ProxyTransitionDistance
+      second: 110
+    - first:
+        name: _ProxyTransitionFalloff
+      second: 10.4
     - first:
         name: _RefractionIntensity
       second: 0.033
@@ -174,7 +228,7 @@ Material:
       second: 0.79
     - first:
         name: _Rim_Glow_Height
-      second: 0.05
+      second: 0.1
     - first:
         name: _SmoothnessTextureChannel
       second: 0
@@ -212,6 +266,12 @@ Material:
         name: _Tile
       second: 5
     - first:
+        name: _TransitionFalloff
+      second: 7.2
+    - first:
+        name: _Transition_Distance
+      second: 207.7
+    - first:
         name: _UVSec
       second: 0
     - first:
@@ -222,14 +282,32 @@ Material:
         name: _Color
       second: {r: 0, g: 1, b: 1, a: 1}
     - first:
+        name: _Diffuse
+      second: {r: 0, g: 0, b: 0, a: 1}
+    - first:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
+    - first:
+        name: _Far_Colour
+      second: {r: 0, g: 0.04827595, b: 1, a: 1}
     - first:
         name: _Fresnel_Color
       second: {r: 0.2069637, g: 0.6862037, b: 0.9705882, a: 1}
     - first:
         name: _Highlight_Color
-      second: {r: 0.17290226, g: 0.72279555, b: 0.9044118, a: 1}
+      second: {r: 0.20696375, g: 0.9705882, b: 0.7494004, a: 1}
+    - first:
+        name: _Near_Colour
+      second: {r: 1, g: 0, b: 0, a: 1}
     - first:
         name: _Rim_Glow_Color
-      second: {r: 1, g: 1, b: 1, a: 1}
+      second: {r: 0, g: 1, b: 0.4620688, a: 1}
+    - first:
+        name: _node_2538
+      second: {r: 0, g: 0.3897059, b: 0.26069984, a: 1}
+    - first:
+        name: _node_3249
+      second: {r: 0, g: 1, b: 0.9586208, a: 1}
+    - first:
+        name: _node_3596
+      second: {r: 0.5, g: 0.5, b: 0.5, a: 1}
