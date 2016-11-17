@@ -3,18 +3,18 @@ using System.Collections;
 
 public class steamActivation : MonoBehaviour 
 {
-	public GameObject Player1;
-	public GameObject Player2;
 
-	void OnTriggerEnter (Collider other)
+	//public int playerIndex;
+	public float damage;
+
+	void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject == Player1) 
+		if (other.transform.tag == "Player") 
 		{
-			Debug.Log ("You hit some steam yo");
-		}
-		if (other.gameObject == Player2) 
-		{
-			Debug.Log ("You hit some steam yo");
+			//if (other.GetComponent<DragonManager> ().playerIndex != playerIndex) 
+			{
+				other.GetComponent<DragonStats> ().currentHealth -= damage;
+			}
 		}
 	}
 

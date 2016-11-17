@@ -12,6 +12,9 @@ public class DragonStats : MonoBehaviour {
     public float currentHealth;
     public float healthBarSize = 100;
     public float healthSpeed = 0.2f;
+	public Animator animator;
+	public Rigidbody rb;
+	public bool IsDead = false;
 
     [Header("Fire Ball")]
     public Rigidbody fireBallPrefab;
@@ -20,11 +23,13 @@ public class DragonStats : MonoBehaviour {
     float ballCooldown;
     public AttackIcons ballAttackSprites;
 
+
     [Header("Flame Breath")]
     public float range = 100;
     [Range(0, 1.0f)]
     public float angle = 21;
     public float breathDamage;
+	public GameObject flameBreath;
 
     public Image healthFill;
     public Image damageFill;
@@ -77,11 +82,27 @@ public class DragonStats : MonoBehaviour {
         ballAttackSprites.ManageIcons(ballCooldown, ballCooldownLength);
 
         if (currentHealth < 0) currentHealth = 0;
+		if (currentHealth > 100) currentHealth = 100;
+
 
         CastFlameBreath();
         CastFireBall();
 
+
     }
+	void FixedUpdate()
+	{
+		if (currentHealth == 0) 
+		{
+			animator.SetBool ("IsDead", true);	
+			IsDead = true;
+
+			GetComponent<DragonManager> ().enabled = false;
+			GetComponent<DragonControllerIdleFly> ().enabled = false;
+			GetComponent<DragonControllerFly> ().enabled = false;
+			rb.useGravity = true;
+		}
+	}
 
     // debugging, remove later
     public float coneX;
@@ -89,7 +110,7 @@ public class DragonStats : MonoBehaviour {
 
     void CastFlameBreath()
     {
-        if (device.Action1.IsPressed)
+        if (device.Action1.IsPressed && !IsDead)
         {
             Vector3 posD = transform.position;
             Vector3 posT = enemyDragon.position;
@@ -100,19 +121,22 @@ public class DragonStats : MonoBehaviour {
             coneX = x;
             coneY = y;
 
+			flameBreath.GetComponent<ParticleSystem>().enableEmission = true;
             if (x > 0 && x < range && y < (x * angle))
                 enemyStats.currentHealth -= breathDamage * Time.deltaTime;
         }
+		flameBreath.GetComponent<ParticleSystem>().enableEmission = false;
     }
 
     void CastFireBall()
     {
         //Fireball attack
-        if (CanFireball() && device.Action2.IsPressed)
+		if (CanFireball() && device.Action2.IsPressed && !IsDead)
         {
-            GameObject fire = Instantiate(Resources.Load("fireBall") as GameObject,
+            GameObject fire = Instantiate(Resources.Load("FireBall 1") as GameObject,
                 transform.position + (transform.localRotation * pointOfAttack),
                 transform.rotation) as GameObject;
+			 
             ResetBallCooldown();
             fire.GetComponent<FireBall>().playerIndex = playerIndex;
 

@@ -41,7 +41,7 @@ public class DragonControllerIdleFly : MonoBehaviour {
 	void Update ()
     {
         //Movement
-        if (device.LeftBumper < -leftStickXValue)
+        if (device.LeftBumper.IsPressed)
         {//Left
             transform.position -= transform.right * Time.deltaTime * strafeSpeed;
         }
