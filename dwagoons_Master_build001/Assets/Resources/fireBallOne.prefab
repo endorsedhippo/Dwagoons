@@ -57,7 +57,7 @@ GameObject:
   - 54: {fileID: 54000012766032154}
   - 114: {fileID: 114000012867163982}
   m_Layer: 0
-  m_Name: fireBallUpdated 1
+  m_Name: fireBallOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -444,6 +444,7 @@ MonoBehaviour:
   playerIndex: 0
   speed: 100
   timeUntilDestroy: 5
+  damage: 10
 --- !u!114 &114000013317920958
 MonoBehaviour:
   m_ObjectHideFlags: 1
