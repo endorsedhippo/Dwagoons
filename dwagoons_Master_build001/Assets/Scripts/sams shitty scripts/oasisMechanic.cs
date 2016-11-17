@@ -34,7 +34,7 @@ public class oasisMechanic : MonoBehaviour
 	{
 		if (other.transform.tag == "Player") 
 		{
-			if (other.GetComponent<DragonManager> ().playerIndex != playerIndex) 
+			//if (other.GetComponent<DragonManager> ().playerIndex != playerIndex) 
 			{
 				other.GetComponent<DragonStats> ().currentHealth += hp;
 			}

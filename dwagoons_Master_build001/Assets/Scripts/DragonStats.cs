@@ -29,6 +29,7 @@ public class DragonStats : MonoBehaviour {
     [Range(0, 1.0f)]
     public float angle = 21;
     public float breathDamage;
+	public GameObject flameBreath;
 
     public Image healthFill;
     public Image damageFill;
@@ -120,9 +121,11 @@ public class DragonStats : MonoBehaviour {
             coneX = x;
             coneY = y;
 
+			flameBreath.GetComponent<ParticleSystem>().enableEmission = true;
             if (x > 0 && x < range && y < (x * angle))
                 enemyStats.currentHealth -= breathDamage * Time.deltaTime;
         }
+		flameBreath.GetComponent<ParticleSystem>().enableEmission = false;
     }
 
     void CastFireBall()
