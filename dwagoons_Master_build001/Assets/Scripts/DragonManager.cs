@@ -18,7 +18,7 @@ public class DragonManager : MonoBehaviour
     private DragonControllerGround groundController;
     private DragonStats stats;
     private InputDevice device;
-    private Rigidbody rb;
+    public Rigidbody rb;
 
     //Public Values for Sam to Change
     //To keep accurate... keep these values within 5.0f of the move speed of their respected fly script.
@@ -71,10 +71,6 @@ public class DragonManager : MonoBehaviour
             groundController = GetComponent<DragonControllerGround>();
         }
 
-        if (playerIndex == 1)
-        {
-            return;
-        }
         if (isGrounded == true)
         {
             animator.SetBool("IsGrounded", true);
@@ -154,12 +150,12 @@ public class DragonManager : MonoBehaviour
             {
                 isGrounded = false;
             }
-            if (hit.normal.y < 1.0f && hit.rigidbody != rb)
+            if (hit.normal.y < 1.0f && hit.rigidbody != rb || gameObject.tag == "Ground")
             {
 
                 isGrounded = true;
             }
-            else if(hit.normal.y > 1.0f)
+            else if(hit.normal.y > 1.0f && gameObject.layer == 8)
             {
                 isGrounded = false;
             }
@@ -225,7 +221,7 @@ public class DragonManager : MonoBehaviour
             }
             else
             {
-                animator.SetBool("IsGrounded", true);
+                //animator.SetBool("IsGrounded", true);
                 animator.SetBool("SetFlying", false);
                 animator.SetBool("BankLeft", false);
                 animator.SetBool("BankRight", false);
